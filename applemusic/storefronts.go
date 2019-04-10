@@ -25,7 +25,7 @@ type StorefrontResponse struct {
 type Storefront struct {
 	Resource
 	Attributes StorefrontAttributes //The attributes for the storefront.
-	Type       string               //(Required) This value will always be storefronts. Value: storefronts
+	//Type       string               //(Required) This value will always be storefronts. Value: storefronts
 }
 
 type StorefrontAttributes struct {
@@ -67,6 +67,6 @@ type GetStorefrontParams struct {
 func (s *StorefrontsService) GetStorefront(params *GetStorefrontParams) (*StorefrontResponse, *http.Response, error) {
 	storefronts := new(StorefrontResponse)
 	apiError := new(APIError)
-	resp, err := s.sling.New().Get(params.Id).QueryStruct(params).Receive(storefronts, apiError)
+	resp, err := s.sling.New().Get(params.Id).Receive(storefronts, apiError)
 	return storefronts, resp, relevantError(err, *apiError)
 }
