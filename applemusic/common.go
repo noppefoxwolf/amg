@@ -71,8 +71,9 @@ type EditorialNotes struct {
 }
 
 type PlayParameters struct {
-	Id   string
-	Kind string
+	Id        string
+	Kind      string
+	IsLibrary bool //UnDocumented
 }
 
 type Preview struct {

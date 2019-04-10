@@ -2,9 +2,10 @@ package applemusic
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMeService_GetStorefront(t *testing.T) {
@@ -23,15 +24,17 @@ func TestMeService_GetStorefront(t *testing.T) {
 		L: "xx",
 	})
 
-	expected := &Storefronts{
+	expected := &StorefrontResponse{
 		Data: []Storefront{
 			{
-				Id: "jp",
-				Type: "storefronts",
-				Href: "/v1/storefronts/jp",
-				Attributes: StorefrontAttribute{
+				Resource: Resource{
+					Id:   "jp",
+					Type: "storefronts",
+					Href: "/v1/storefronts/jp",
+				},
+				Attributes: StorefrontAttributes{
 					DefaultLanguageTag: "ja",
-					Name: "日本",
+					Name:               "日本",
 					SupportedLanguageTags: []string{
 						"ja",
 						"en-US",
@@ -46,49 +49,51 @@ func TestMeService_GetStorefront(t *testing.T) {
 	assert.Equal(t, expected, storefronts)
 }
 
-
 func TestMeService_GetLibraryRecentryAdded(t *testing.T) {
 	httpClient, mux, server := testServer()
 	defer server.Close()
 
 	mux.HandleFunc("/v1/me/library/recently-added", func(w http.ResponseWriter, r *http.Request) {
 		assertMethod(t, "GET", r)
-		assertQuery(t, map[string]string{"limit": "100", "offset" : "offset"}, r)
+		assertQuery(t, map[string]string{"limit": "100", "offset": "offset"}, r)
 		w.Header().Set("Content-Type", "application/json")
 		_, _ = fmt.Fprintf(w, `{"next":"/v1/me/library/recently-added?offset=1","data":[{"id":"l.dVaffho","type":"library-albums","href":"/v1/me/library/albums/l.dVaffho","attributes":{"trackCount":11,"playParams":{"id":"l.dVaffho","kind":"album","isLibrary":true},"artistName":"Various Artists","name":"New Invoke vol.1","artwork":{"width":1200,"height":1200,"url":"https://is5-ssl.mzstatic.com/image/thumb/Music128/v4/5a/85/02/5a85027f-b2e6-56d0-935e-60d2b88340ef/CYCLC-0002_NEW_INVOKE_VOL.1.png/{w}x{h}bb.jpeg"}}}]}`)
 	})
 
 	client := NewClient(httpClient)
 	storefronts, _, err := client.Me.GetLibraryRecentryAdded(&GetMeLibraryRecentryAddedParams{
-		Limit: 100,
+		Limit:  100,
 		Offset: "offset",
 	})
 
-	expected := &LibraryAlbums{
+	expected := &LibraryAlbumResponse{
 		Data: []LibraryAlbum{
 			{
-				Id: "l.dVaffho",
-				Type: "library-albums",
-				Href: "/v1/me/library/albums/l.dVaffho",
-				Attributes: AlbumAttribute{
+				Resource: Resource{
+					Id:   "l.dVaffho",
+					Type: "library-albums",
+					Href: "/v1/me/library/albums/l.dVaffho",
+				},
+				Attributes: LibraryAlbumAttributes{
 					TrackCount: 11,
-					PlayParams: PlayParams{
-						Id: "l.dVaffho",
-						Kind: "album",
+					PlayParams: PlayParameters{
+						Id:        "l.dVaffho",
+						Kind:      "album",
 						IsLibrary: true,
 					},
 					ArtistName: "Various Artists",
-					Name: "New Invoke vol.1",
+					Name:       "New Invoke vol.1",
 					Artwork: Artwork{
-						Width: 1200,
+						Width:  1200,
 						Height: 1200,
-						Url: "https://is5-ssl.mzstatic.com/image/thumb/Music128/v4/5a/85/02/5a85027f-b2e6-56d0-935e-60d2b88340ef/CYCLC-0002_NEW_INVOKE_VOL.1.png/{w}x{h}bb.jpeg",
+						Url:    "https://is5-ssl.mzstatic.com/image/thumb/Music128/v4/5a/85/02/5a85027f-b2e6-56d0-935e-60d2b88340ef/CYCLC-0002_NEW_INVOKE_VOL.1.png/{w}x{h}bb.jpeg",
 					},
 				},
 			},
 		},
-		Next: "/v1/me/library/recently-added?offset=1",
-
+		ResponseRoot: ResponseRoot{
+			Next: "/v1/me/library/recently-added?offset=1",
+		},
 	}
 
 	assert.Nil(t, err)
