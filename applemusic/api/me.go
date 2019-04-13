@@ -53,3 +53,12 @@ func (s *MeService) GetMeHeavyRotationContent(params *GetMeHeavyRotationContentP
 	resp, err := s.sling.New().Get("history/heavy-rotation").QueryStruct(params).Receive(albums, apiError)
 	return albums, resp, relevantError(err, *apiError)
 }
+
+//POST https://api.music.apple.com/v1/me/library
+//ids
+//[string]
+//(Required) The unique catalog identifiers for the resources. To indicate the type of resource to be added, ids must be followed by one of the allowed values. Multiple types can be added in the same request.
+//Possible values: albums, music-videos, playlists, songs
+
+//Get a Library Artist
+//https://api.music.apple.com/v1/me/library/artists/{id}
