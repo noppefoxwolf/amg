@@ -1,4 +1,4 @@
-package applemusic
+package models
 
 type ActivityResponse struct {
 	ResponseRoot

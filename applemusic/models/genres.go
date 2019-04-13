@@ -1,4 +1,4 @@
-package applemusic
+package models
 
 type GenreResponse struct {
 	ResponseRoot
@@ -7,7 +7,7 @@ type GenreResponse struct {
 
 type Genre struct {
 	Attributes GenreAttributes //The attributes for the genre.
-	Type string //(Required) This value will always be genres.  Value: genres
+	Type       string          //(Required) This value will always be genres.  Value: genres
 }
 
 type GenreAttributes struct {

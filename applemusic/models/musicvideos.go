@@ -1,6 +1,4 @@
-package applemusic
-
-import "time"
+package models
 
 type MusicVideoResponse struct {
 	ResponseRoot
@@ -8,10 +6,11 @@ type MusicVideoResponse struct {
 }
 
 type MusicVideo struct {
-	Resource
+	Href          string
+	Id            string
+	Meta          ResourceMeta
 	Attributes    MusicVideoAttributes    //The attributes for the music video.
 	Relationships MusicVideoRelationships //The relationships for the music video.
-	Type          string                  //(Required) This value will always be musicVideos. Value: musicVideos
 }
 
 type MusicVideoAttributes struct {
@@ -26,7 +25,7 @@ type MusicVideoAttributes struct {
 	Name             string         //(Required) The localized name of the music video.
 	PlayParams       PlayParameters //The parameters to use to play back the music video.
 	Previews         []Preview      //(Required) The preview assets for the music video.
-	ReleaseDate      time.Time      //(Required) The release date of the music video in YYYY-MM-DD format.
+	ReleaseDate      ReleaseDate    //(Required) The release date of the music video in YYYY-MM-DD format.
 	TrackNumber      int            //The number of the music video in the album’s track list.
 	Url              string         //(Required) A URL for sharing the music video.
 	VideoSubType     string         //The video subtype associated with the content.

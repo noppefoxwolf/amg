@@ -1,4 +1,4 @@
-package applemusic
+package api
 
 import (
 	"io/ioutil"
@@ -34,7 +34,6 @@ func (t *RewriteTransport) RoundTrip(req *http.Request) (*http.Response, error) 
 	}
 	return t.Transport.RoundTrip(req)
 }
-
 
 func assertMethod(t *testing.T, expectedMethod string, req *http.Request) {
 	assert.Equal(t, expectedMethod, req.Method)

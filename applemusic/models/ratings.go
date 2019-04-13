@@ -1,4 +1,4 @@
-package applemusic
+package models
 
 type RatingResponse struct {
 	ResponseRoot
@@ -6,9 +6,11 @@ type RatingResponse struct {
 }
 
 type Rating struct {
-	Resource
-	Attributes RatingAttributes //The attributes for the rating.
-	Type string //(Required) This value will always be ratings.  Value: ratings
+	Href          string
+	Id            string
+	Relationships ResourceRelationships
+	Meta          ResourceMeta
+	Attributes    RatingAttributes //The attributes for the rating.
 }
 
 type RatingAttributes struct {

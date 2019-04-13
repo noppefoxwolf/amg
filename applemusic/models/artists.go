@@ -1,4 +1,4 @@
-package applemusic
+package models
 
 type ArtistResponse struct {
 	ResponseRoot
@@ -6,10 +6,11 @@ type ArtistResponse struct {
 }
 
 type Artist struct {
-	Resource
+	Href          string
+	Id            string
+	Meta          ResourceMeta
 	Attributes    ArtistAttributes    //The attributes for the artist.
 	Relationships ArtistRelationships // The relationships for the artist.
-	Type          string              //(Required) This value will always be artists.  Value: artists
 }
 
 type ArtistAttributes struct {
@@ -40,10 +41,11 @@ type LibraryArtistResponse struct {
 }
 
 type LibraryArtist struct {
-	Resource
+	Href          string
+	Id            string
+	Meta          ResourceMeta
 	Attributes    LibraryArtistAttributes    //The attributes for the library artist.
 	Relationships LibraryArtistRelationships // The relationships for the library artist.
-	Type          string                     //(Required) This value will alway be libraryArtists. Value: libraryArtists
 }
 
 type LibraryArtistAttributes struct {

@@ -1,9 +1,11 @@
-package applemusic
+package api
 
 import (
 	"fmt"
 	"net/http"
 	"testing"
+
+	"github.com/noppefoxwolf/amg/applemusic/models"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -12,7 +14,7 @@ func TestStorefrontsService_GetAll(t *testing.T) {
 	httpClient, mux, server := testServer()
 	defer server.Close()
 
-	mux.HandleFunc("/v1/storefronts", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/v1/storefronts/", func(w http.ResponseWriter, r *http.Request) {
 		assertMethod(t, "GET", r)
 		assertQuery(t, map[string]string{"l": "xx", "limit": "100", "offset": "yy"}, r)
 		w.Header().Set("Content-Type", "application/json")
@@ -26,15 +28,12 @@ func TestStorefrontsService_GetAll(t *testing.T) {
 		Offset: "yy",
 	})
 
-	expected := &StorefrontResponse{
-		Data: []Storefront{
+	expected := &models.StorefrontResponse{
+		Data: []models.Storefront{
 			{
-				Resource: Resource{
-					Id:   "ai",
-					Type: "storefronts",
-					Href: "/v1/storefronts/ai",
-				},
-				Attributes: StorefrontAttributes{
+				Id:   "ai",
+				Href: "/v1/storefronts/ai",
+				Attributes: models.StorefrontAttributes{
 					DefaultLanguageTag: "en-GB",
 					Name:               "Anguilla",
 					SupportedLanguageTags: []string{
@@ -54,7 +53,7 @@ func TestStorefrontsService_GetMultipleStorefronts(t *testing.T) {
 	httpClient, mux, server := testServer()
 	defer server.Close()
 
-	mux.HandleFunc("/v1/storefronts", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/v1/storefronts/", func(w http.ResponseWriter, r *http.Request) {
 		assertMethod(t, "GET", r)
 		assertQuery(t, map[string]string{"l": "xx", "ids": "ja,tw"}, r)
 		w.Header().Set("Content-Type", "application/json")
@@ -67,15 +66,12 @@ func TestStorefrontsService_GetMultipleStorefronts(t *testing.T) {
 		Ids: []string{"ja", "tw"},
 	})
 
-	expected := &StorefrontResponse{
-		Data: []Storefront{
+	expected := &models.StorefrontResponse{
+		Data: []models.Storefront{
 			{
-				Resource: Resource{
-					Id:   "ai",
-					Type: "storefronts",
-					Href: "/v1/storefronts/ai",
-				},
-				Attributes: StorefrontAttributes{
+				Id:   "ai",
+				Href: "/v1/storefronts/ai",
+				Attributes: models.StorefrontAttributes{
 					DefaultLanguageTag: "en-GB",
 					Name:               "Anguilla",
 					SupportedLanguageTags: []string{
@@ -106,15 +102,12 @@ func TestStorefrontsService_GetStorefront(t *testing.T) {
 		Id: "jp",
 	})
 
-	expected := &StorefrontResponse{
-		Data: []Storefront{
+	expected := &models.StorefrontResponse{
+		Data: []models.Storefront{
 			{
-				Resource: Resource{
-					Id:   "jp",
-					Type: "storefronts",
-					Href: "/v1/storefronts/jp",
-				},
-				Attributes: StorefrontAttributes{
+				Id:   "jp",
+				Href: "/v1/storefronts/jp",
+				Attributes: models.StorefrontAttributes{
 					DefaultLanguageTag: "ja",
 					Name:               "Japan",
 					SupportedLanguageTags: []string{

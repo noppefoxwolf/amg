@@ -1,4 +1,4 @@
-package applemusic
+package models
 
 import "time"
 
@@ -8,10 +8,11 @@ type PlaylistResponse struct {
 }
 
 type Playlist struct {
-	Resource
+	Href          string
+	Id            string
+	Meta          ResourceMeta
 	Attributes    PlaylistAttributes    //The attributes for the playlist.
 	Relationships PlaylistRelationships //The relationships for the playlist.
-	Type          string                //(Required) This value will always be playlists. Value: playlists
 }
 
 type PlaylistAttributes struct {

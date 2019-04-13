@@ -1,9 +1,11 @@
-package applemusic
+package api
 
 import (
 	"fmt"
 	"net/http"
 	"testing"
+
+	"github.com/noppefoxwolf/amg/applemusic/models"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -24,15 +26,12 @@ func TestMeService_GetStorefront(t *testing.T) {
 		L: "xx",
 	})
 
-	expected := &StorefrontResponse{
-		Data: []Storefront{
+	expected := &models.StorefrontResponse{
+		Data: []models.Storefront{
 			{
-				Resource: Resource{
-					Id:   "jp",
-					Type: "storefronts",
-					Href: "/v1/storefronts/jp",
-				},
-				Attributes: StorefrontAttributes{
+				Id:   "jp",
+				Href: "/v1/storefronts/jp",
+				Attributes: models.StorefrontAttributes{
 					DefaultLanguageTag: "ja",
 					Name:               "日本",
 					SupportedLanguageTags: []string{
@@ -66,36 +65,34 @@ func TestMeService_GetLibraryRecentryAdded(t *testing.T) {
 		Offset: "offset",
 	})
 
-	expected := &LibraryAlbumResponse{
-		Data: []LibraryAlbum{
+	expected := &models.VariableResponse{
+		Data: []models.VariableResource{
 			{
-				Resource: Resource{
-					Id:   "l.dVaffho",
-					Type: "library-albums",
+				Type: "library-albums",
+				LibraryAlbum: &models.LibraryAlbum{
 					Href: "/v1/me/library/albums/l.dVaffho",
-				},
-				Attributes: LibraryAlbumAttributes{
-					TrackCount: 11,
-					PlayParams: PlayParameters{
-						Id:        "l.dVaffho",
-						Kind:      "album",
-						IsLibrary: true,
-					},
-					ArtistName: "Various Artists",
-					Name:       "New Invoke vol.1",
-					Artwork: Artwork{
-						Width:  1200,
-						Height: 1200,
-						Url:    "https://is5-ssl.mzstatic.com/image/thumb/Music128/v4/5a/85/02/5a85027f-b2e6-56d0-935e-60d2b88340ef/CYCLC-0002_NEW_INVOKE_VOL.1.png/{w}x{h}bb.jpeg",
+					Id:   "l.dVaffho",
+					Attributes: models.LibraryAlbumAttributes{
+						TrackCount: 11,
+						PlayParams: models.PlayParameters{
+							Id:        "l.dVaffho",
+							Kind:      "album",
+							IsLibrary: true,
+						},
+						ArtistName: "Various Artists",
+						Name:       "New Invoke vol.1",
+						Artwork: models.Artwork{
+							Width:  1200,
+							Height: 1200,
+							Url:    "https://is5-ssl.mzstatic.com/image/thumb/Music128/v4/5a/85/02/5a85027f-b2e6-56d0-935e-60d2b88340ef/CYCLC-0002_NEW_INVOKE_VOL.1.png/{w}x{h}bb.jpeg",
+						},
 					},
 				},
 			},
 		},
-		ResponseRoot: ResponseRoot{
-			Next: "/v1/me/library/recently-added?offset=1",
-		},
 	}
 
 	assert.Nil(t, err)
+
 	assert.Equal(t, expected, storefronts)
 }

@@ -1,4 +1,4 @@
-package applemusic
+package models
 
 import "fmt"
 
@@ -24,14 +24,4 @@ func (e APIError) Empty() bool {
 		return true
 	}
 	return false
-}
-
-func relevantError(httpError error, apiError APIError) error {
-	if httpError != nil {
-		return httpError
-	}
-	if apiError.Empty() {
-		return nil
-	}
-	return apiError
 }

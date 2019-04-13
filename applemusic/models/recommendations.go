@@ -1,4 +1,4 @@
-package applemusic
+package models
 
 import "time"
 
@@ -8,10 +8,9 @@ type RecommendationResponse struct {
 }
 
 type Recommendation struct {
-	Resource
+	Meta          ResourceMeta
 	Attributes    RecommendationAttributes    //The attributes for the recommendation.
 	Relationships RecommendationRelationships //For contents, a list of recommended candidates that are a mixture of albums and playlists. For recommendations, a list of recommendations within a group.
-	Type          string                      //(Required) This value will always be personal-recommendation. Value: personal-recommendation
 	Next          string                      //(Required) The URL for the next page.
 	Id            string                      //(Required) The ID of the recommendation.
 	Href          string                      //(Required) The URL for the recommendation.

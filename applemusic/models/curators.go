@@ -1,4 +1,4 @@
-package applemusic
+package models
 
 type CuratorResponse struct {
 	ResponseRoot
@@ -6,10 +6,11 @@ type CuratorResponse struct {
 }
 
 type Curator struct {
-	Resource
+	Href          string
+	Id            string
+	Meta          ResourceMeta
 	Attributes    CuratorAttributes    //The attributes for the curator.
 	Relationships CuratorRelationships //The relationships for the curator.
-	Type          string               //(Required) This value will always be curators. Value: curators
 }
 
 type CuratorAttributes struct {
@@ -36,10 +37,11 @@ type AppleCuratorResponse struct {
 }
 
 type AppleCurator struct {
-	Resource
+	Href          string
+	Id            string
+	Meta          ResourceMeta
 	Attributes    AppleCuratorAttributes    //The attributes for the Apple curator.
 	Relationships AppleCuratorRelationships //The relationships for the Apple curator.
-	Type          string                    //(Required) This value will always be appleCurators. Value: appleCurators
 }
 
 type AppleCuratorAttributes struct {
