@@ -1,4 +1,4 @@
-package models
+package applemusic
 
 type ChartResponse struct {
 	Albums      Chart //The albums returned when fetching charts.

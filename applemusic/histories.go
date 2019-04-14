@@ -1,4 +1,4 @@
-package models
+package applemusic
 
 type HistoryResponse struct {
 	ResponseRoot

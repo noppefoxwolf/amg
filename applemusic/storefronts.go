@@ -1,4 +1,4 @@
-package models
+package applemusic
 
 type StorefrontResponse struct {
 	ResponseRoot

@@ -1,4 +1,4 @@
-package models
+package applemusic
 
 type SearchResponse struct {
 	ResponseRoot
